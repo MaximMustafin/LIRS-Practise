@@ -12,11 +12,20 @@ int getRandomNumber(int min, int max)
     return static_cast<int>(std::rand() * fraction * (max - min + 1) + min);
 }
 
-void Rotator::Logger(int Roll_x, int Pitch_y, int Yaw_z, tf2::Quaternion myQuaternion)
+void Rotator::Logger(int Roll_x, int Pitch_y, int Yaw_z, double Roll_x_radians,
+                      double Pitch_y_radians, double Yaw_z_radians ,tf2::Quaternion myQuaternion)
 {
     std::cout<<"[Roll_x] = "<<Roll_x<<std::endl;
     std::cout<<"[Pitch_y] = "<<Pitch_y<<std::endl;
     std::cout<<"[Yaw_z] = "<<Yaw_z<<std::endl;
+    
+    std::cout<<std::endl;
+
+    std::cout<<"[Roll_x_radians] = "<<Roll_x_radians<<std::endl;
+    std::cout<<"[Pitch_y_radians] = "<<Pitch_y_radians<<std::endl;
+    std::cout<<"[Yaw_z_radians] = "<<Yaw_z_radians<<std::endl;
+
+    std::cout<<std::endl;
 
     std::cout<<"Quaternion:"<<std::endl;
     std::cout<<"    "<<"[x] = "<<myQuaternion.getX()<<std::endl;
@@ -31,8 +40,12 @@ void Rotator::Start()
     int Pitch_y = getRandomNumber(0, 360);
     int Yaw_z = getRandomNumber(0, 360);
    
+    double Roll_x_radians = Roll_x * (M_PI/180);
+    double Pitch_y_radians = Pitch_y * (M_PI/180);
+    double Yaw_z_radians = Yaw_z * (M_PI/180);
+
     tf2::Quaternion myQuaternion;
-    myQuaternion.setRPY(Roll_x, Pitch_y, Yaw_z);
+    myQuaternion.setRPY(Roll_x_radians, Pitch_y_radians, Yaw_z_radians);
 
     geometry_msgs::Point position;
     position.z = 0.5;
@@ -43,7 +56,7 @@ void Rotator::Start()
     orientation.z = myQuaternion.getZ();
     orientation.w = myQuaternion.getW();
 
-    Logger(Roll_x, Pitch_y, Yaw_z, myQuaternion);
+    Logger(Roll_x, Pitch_y, Yaw_z, Roll_x_radians, Pitch_y_radians, Yaw_z_radians, myQuaternion);
 
     geometry_msgs::Pose pose;
     pose.position = position;

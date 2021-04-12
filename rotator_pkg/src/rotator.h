@@ -11,7 +11,7 @@ class Rotator
 {
     public:
         void Start();
-        void Logger(int, int, int, tf2::Quaternion);
+        void Logger(int, int, int, double, double, double, tf2::Quaternion);
         Rotator(std::string);
         std::string model_name;
     
