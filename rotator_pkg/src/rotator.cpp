@@ -48,7 +48,7 @@ void Rotator::Start()
     myQuaternion.setRPY(Roll_x_radians, Pitch_y_radians, Yaw_z_radians);
 
     geometry_msgs::Point position;
-    position.z = 0.5;
+    position.z = 1.2;
 
     geometry_msgs::Quaternion orientation;
     orientation.x = myQuaternion.getX();
