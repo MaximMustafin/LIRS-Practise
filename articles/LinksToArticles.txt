@@ -1,0 +1,12 @@
+“Фильтр Калмана — Введение” (https://habr.com/ru/post/140274/)
+
+“Фильтр Калмана — !cложно?” (https://habr.com/ru/post/120133/)
+
+Modeling Inverse Kinematics in a Robotic Arm
+(https://www.mathworks.com/help/fuzzy/modeling-inverse-kinematics-in-a-robotic-arm.html) 
+
+Robotic Control Lecture 1 Dynamics and Modeling Robotic
+(https://slidetodoc.com/robotic-control-lecture-1-dynamics-and-modeling-robotic/)
+
+Pushkal Badoniya, Josy George, “Two Link Planar Robot Manipulator Mechanism Analysis with MATLAB”
+(https://1library.net/document/z3d0869y-link-planar-robot-manipulator-mechanism-analysis-matlab.html)
