@@ -8,5 +8,3 @@ Modeling Inverse Kinematics in a Robotic Arm
 Robotic Control Lecture 1 Dynamics and Modeling Robotic
 (https://slidetodoc.com/robotic-control-lecture-1-dynamics-and-modeling-robotic/)
 
-Pushkal Badoniya, Josy George, “Two Link Planar Robot Manipulator Mechanism Analysis with MATLAB”
-(https://1library.net/document/z3d0869y-link-planar-robot-manipulator-mechanism-analysis-matlab.html)
