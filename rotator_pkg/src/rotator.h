@@ -10,7 +10,7 @@
 class Rotator
 {
     public:
-        void Start();
+        void Start(double);
         void Logger(int, int, int, double, double, double, tf2::Quaternion);
         Rotator(std::string);
         std::string model_name;

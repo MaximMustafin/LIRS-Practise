@@ -34,7 +34,7 @@ void Rotator::Logger(int Roll_x, int Pitch_y, int Yaw_z, double Roll_x_radians,
     std::cout<<"    "<<"[w] = "<<myQuaternion.getW()<<std::endl;
 }
 
-void Rotator::Start()
+void Rotator::Start(double height)
 {
     int Roll_x = getRandomNumber(0, 360);
     int Pitch_y = getRandomNumber(0, 360);
@@ -48,7 +48,7 @@ void Rotator::Start()
     myQuaternion.setRPY(Roll_x_radians, Pitch_y_radians, Yaw_z_radians);
 
     geometry_msgs::Point position;
-    position.z = 1.2;
+    position.z =  height;
 
     geometry_msgs::Quaternion orientation;
     orientation.x = myQuaternion.getX();

@@ -13,8 +13,12 @@ int main(int argc, char **argv)
     {
         ros::init(argc, argv, "rotator");
 
+        double height;
+        std::cout<<"Enter height=";
+        std::cin>>height;
+
         Rotator rotator = Rotator(model_name);
-        rotator.Start();
+        rotator.Start(height);
 
         std::cout<<"Do rotate one more time? [Y][N]";
         std::cin>>doContinue;
