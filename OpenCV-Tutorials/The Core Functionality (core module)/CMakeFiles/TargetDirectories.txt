@@ -1,0 +1,9 @@
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/rebuild_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/Disscrete_fourier_transform.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/Basic_linear_transoforms.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/Adding_two_images.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/File_input_output.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/Mat_mask_operations.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/edit_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/How_to_scan_images.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/The Core Functionality (core module)/CMakeFiles/Mat_the_Basic_Image_Container.dir

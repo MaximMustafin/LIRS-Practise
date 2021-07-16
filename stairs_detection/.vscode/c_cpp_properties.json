@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/opt/ros/noetic/include/**",
+        "/home/maxim/lirs_summer_practise_ws/src/stairs_detection/stair_detector_geo/include/**",
+        "/home/maxim/lirs_summer_practise_ws/src/stairs_detection/stairs_detection_pkg/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

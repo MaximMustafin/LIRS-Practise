@@ -1,0 +1,4 @@
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Introduction to OpenCV/CMakeFiles/rebuild_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Introduction to OpenCV/CMakeFiles/edit_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Introduction to OpenCV/CMakeFiles/DisplaySampleImage.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Introduction to OpenCV/CMakeFiles/DisplayImage.dir

@@ -1,0 +1,38 @@
+	Lookup tables are simple arrays
+(having one or more dimensions) that for a given input 
+value variation holds the final output value. 
+Its strength is that we do not need to make the calculation, 
+we just need to read the result.
+
+[How is the image matrix stored in memory?]
+As you could already read in
+Mat - The Basic Image Container tutorial the size of 
+the matrix depends on the color system used. 
+More accurately, it depends on the number of channels used. 
+In case of a grayscale image we have something like:
+	
+		Column 0	Column 1	Column ...	Column m
+Row 0	  0,0		   0,1		   ...		   0,m
+Row 1	  1,0		   1,1         ...         1,
+Row ...   ...,0        ...,1       ...         ..., m   
+Row n     n,0          n,1         n,...       n,m
+
+For multichannel images the columns contain as
+many sub columns as the number of channels.
+For example in case of an BGR color system:
+
+		Column 0		Column 1		Column ...		Column m
+Row 0 [0,0|0,0|0,0]	  [0,1|0,1|0,1]	  [...|...|...]	  [0,m|0,m|0,m]
+Row 1 [1,0|1,0|1,0]	  [1,1|1,1|1,1]	  [...|...|...]	  [1,m|1,m|1,m]
+Row . [.,0|.,0|.,0]	  [.,1|.,1|.,1]	  [...|...|...]	  [.,m|.,m|.,m]
+Row n [n,0|n,0|n,0]	  [n,1|n,1|n,1]	  [...|...|...]	  [n,m|n,m|n,m]
+
+Note that the order of the channels is inverse: 
+BGR instead of RGB. Because in many cases the memory is 
+large enough to store the rows in a successive fashion 
+the rows may follow one after another, creating a single long row. 
+Because everything is in a single place following one 
+after another this may help to speed up the scanning process. 
+We can use the cv::Mat::isContinuous() function to ask the matrix 
+if this is the case. Continue on to the next section to 
+find an example.

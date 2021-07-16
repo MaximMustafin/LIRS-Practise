@@ -1,0 +1,8 @@
+From our previous tutorial, we know already a bit of
+Pixel operators. An interesting dyadic (two-input) operator is
+the linear blend operator:
+
+g(x)=(1−α)f0(x)+αf1(x)
+By varying α from 0→1 this operator can be used to perform
+a temporal cross-dissolve between two images or videos,
+as seen in slide shows and film productions (cool, eh?)

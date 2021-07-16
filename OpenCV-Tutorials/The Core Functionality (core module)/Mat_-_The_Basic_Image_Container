@@ -1,0 +1,224 @@
+[Mat]
+
+[!] Output image allocation for OpenCV functions
+	is automatic (unless specified otherwise).
+[!] You do not need to think about memory management with 
+	OpenCV's C++ interface
+[!] The assignment operator and the copy constructor
+	only copies the header.
+[!] The underlying matrix of an image may be copied
+	using the cv::Mat::clone() and cv::Mat::copyTo()
+	functions.
+	
+	Mat is basically a class with two data parts:
+the matrix header(containing information such as the size
+of the matrix, the method used for storing, at which address
+is the matrix stored, and so on) and a pointer to the matrix
+containing the pixel values (taking any dimensionality
+depending on the method chosen for storing).
+The matrix header size is constant, however the size of
+the matrix itself may vary from image to image and usually
+is larger by orders of magnitude.
+
+OpenCV uses a reference counting system. The idea is that
+each Mat object has its own header, however a matrix may be 
+shared between two Mat objects by having their matrix 
+pointers point to the same address. Moreover, the copy 
+operators will only copy the headers and the pointer to the 
+large matrix, not the data itself.
+
+Mat A, C;                          // creates just the header parts
+A = imread(argv[1], IMREAD_COLOR); // here we'll know the method used (allocate matrix)
+Mat B(A);                                 // Use the copy constructor
+C = A;                                    // Assignment operator
+
+All the above objects, in the end, point to the same single
+data matrix and making a modification using any of them will
+affect all the other ones as well.
+
+The real interesting part is that you can create headers
+which refer to only a subsection of the full data. 
+For example, to create a region of interest (ROI) in an 
+image you just create a new header with the new boundaries:
+
+Mat D (A, Rect(10, 10, 100, 100) ); // using a rectangle
+Mat E = A(Range::all(), Range(1,3)); // using row and column boundaries
+
+OpenCV provides cv::Mat::clone() and cv::Mat::copyTo
+functions to copy the matrix itself too:
+
+Mat F = A.clone();
+Mat G;
+A.copyTo(G);
+
+Now modifying F or G will not affect the matrix pointed by
+the A's header.
+
+[Storing methods]
+
+This is about how you store the pixel values.
+There are, however, many other color systems each with
+their own advantages:
+
+- RGB is the most common as our eyes use something similar,
+however keep in mind that OpenCV standard display system
+composes colors using the BGR color space 
+(red and blue channels are swapped places).
+
+- The HSV and HLS decompose colors into their hue, 
+saturation and value/luminance components, 
+which is a more natural way for us to describe colors. 
+You might, for example, dismiss the last component, 
+making your algorithm less sensible to the light conditions 
+of the input image.
+
+- YCrCb is used by the popular JPEG image format.
+
+- CIE L*a*b* is a perceptually uniform color space, 
+which comes in handy if you need to measure the distance of 
+a given color to another color.
+
+Each of the building components has its own valid domains.
+This leads to the data type used. How we store a component
+defines the control we have over its domain. 
+The smallest data type possible is char, which means 
+one byte or 8 bits. This may be unsigned 
+(so can store values from 0 to 255) or signed 
+(values from -127 to +127). Although in case of three 
+components this already gives 16 million possible colors 
+to represent (like in case of RGB) we may acquire an even 
+finer control by using the float (4 byte = 32 bit) or 
+double (8 byte = 64 bit) data types for each component. 
+Nevertheless, remember that increasing the size of a 
+component also increases the size of the whole picture 
+in the memory.
+
+[Creating a Mat object explicity]
+
+However, for debugging purposes it's much more convenient
+to see the actual values. You can do this using
+the << operator of Mat. Be aware that this only works for 
+two dimensional matrices.
+
+Although Mat works really well as an image container,
+it is also a general matrix class. Therefore,
+it is possible to create and manipulate multidimensional
+matrices. You can create a Mat object in multiple ways:
+
+1) cv::Mat::Mat Constructor
+
+   Mat M(2,2, CV_8UC3, Scalar(0,0,255));
+   cout << "M = " << endl << " " << M << endl << endl;
+   
+   For two dimensional and multichannel images we first
+   define their size: row and column count wise.
+
+   Then we need to specify the data type to use for storing
+   the elements and the number of channels per matrix point.
+   To do this we have multiple definitions constructed
+   according to the following convention:
+
+   "CV_[The number of bits per item][Signed or Unsigned][Type Prefix]C[The channel number]"
+   
+2) Use C/C++ arrays and initialize via constructor
+   
+   int sz[3] = {2,2,2};
+   Mat L(3,sz, CV_8UC(1), Scalar::all(0));
+   
+   The upper example shows how to create a matrix with
+   more than two dimensions. Specify its dimension,
+   then pass a pointer containing the size for each
+   dimension and the rest remains the same.
+   
+3) cv::Mat::create function
+   
+   M.create(4,4, CV_8UC(2));
+   cout << "M = "<< endl << " "  << M << endl << endl;
+   
+   You cannot initialize the matrix values with
+   this construction. It will only reallocate its matrix
+   data memory if the new size will not fit into
+   the old one.
+   
+4) MATLAB style initializer: cv::Mat::zeros ,
+   cv::Mat::ones , cv::Mat::eye .
+   Specify size and data type to use
+   
+    Mat E = Mat::eye(4, 4, CV_64F);
+    cout << "E = " << endl << " " << E << endl << endl;
+	
+    Mat O = Mat::ones(2, 2, CV_32F);
+    cout << "O = " << endl << " " << O << endl << endl;
+	
+    Mat Z = Mat::zeros(3,3, CV_8UC1);
+    cout << "Z = " << endl << " " << Z << endl << endl;
+	
+5) For small matrices you may use comma separated
+   initializers or initializer lists
+   (C++11 support is required in the last case)
+   
+   Mat C = (Mat_<double>(3,3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
+   cout << "C = " << endl << " " << C << endl << endl;
+   
+   C = (Mat_<double>({0, -1, 0, -1, 5, -1, 0, -1, 0})).reshape(3);
+   cout << "C = " << endl << " " << C << endl << endl;
+   
+6) Create a new header for an existing
+   Mat object and cv::Mat::clone or cv::Mat::copyTo it.
+   
+   Mat RowClone = C.row(1).clone();
+   cout << "RowClone = " << endl << " " << RowClone << endl << endl;
+   
+[Note]
+You can fill out a matrix with random values
+using the cv::randu() function. 
+You need to give a lower and upper limit for the 
+random values:
+
+Mat R = Mat(3, 2, CV_8UC3);
+randu(R, Scalar::all(0), Scalar::all(255));
+
+[Output formatting]
+In the above examples you could see the default 
+formatting option. OpenCV, however, allows you 
+to format your matrix output:
+
+1)Default 
+  cout << "R (default) = " << endl <<    R  << endl << endl;
+  
+2)Python
+   cout << "R (python)  = " << endl << format(R, Formatter::FMT_PYTHON) << endl << endl;
+   
+3)Comma separated values (CSV)
+  cout << "R (csv)     = " << endl << format(R, Formatter::FMT_CSV   ) << endl << endl;
+  
+4)Numpy
+   cout << "R (numpy)   = " << endl << format(R, Formatter::FMT_NUMPY ) << endl << endl;
+   
+5)C
+  cout << "R (c)       = " << endl << format(R, Formatter::FMT_C     ) << endl << endl;
+  
+[Output of other common items]
+OpenCV offers support for output of other common OpenCV data structures too via the << operator:
+
+1)2D Point
+  Point2f P(5, 1);
+  cout << "Point (2D) = " << P << endl << endl;
+  
+2)3D Point
+  Point3f P3f(2, 6, 7);
+  cout << "Point (3D) = " << P3f << endl << endl;
+  
+3)std::vector via cv::Mat
+  vector<float> v;
+  v.push_back( (float)CV_PI);
+  v.push_back(2);
+  v.push_back(3.01f);
+  cout << "Vector of floats via Mat = " << Mat(v) << endl << endl;
+  
+4)std::vector of points
+  vector<Point2f> vPoints(20);
+    for (size_t i = 0; i < vPoints.size(); ++i)
+        vPoints[i] = Point2f((float)(i * 5), (float)(i % 7));
+    cout << "A vector of 2D Points = " << vPoints << endl << endl;
+	

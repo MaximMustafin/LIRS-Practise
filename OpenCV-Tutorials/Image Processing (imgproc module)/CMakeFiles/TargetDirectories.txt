@@ -1,0 +1,5 @@
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Image Processing (imgproc module)/CMakeFiles/rebuild_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Image Processing (imgproc module)/CMakeFiles/edit_cache.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Image Processing (imgproc module)/CMakeFiles/General_contours_demo1.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Image Processing (imgproc module)/CMakeFiles/Hull_demo.dir
+/home/maxim/LIRS-Practise/OpenCV-Tutorials/Image Processing (imgproc module)/CMakeFiles/Find_contours_demo.dir

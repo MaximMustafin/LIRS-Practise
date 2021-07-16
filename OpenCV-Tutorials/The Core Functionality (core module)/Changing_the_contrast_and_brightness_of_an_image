@@ -1,0 +1,17 @@
+[Image Processing]
+- A general image processing operator is a function
+that takes one or more input images and produces an output image.
+- Image transforms can be seen as:
+   1)Point operators (pixel transforms)
+   2)Neighborhood (area-based) operators
+   
+[Pixel Transforms]
+In this kind of image processing transform, 
+each output pixel's value depends on only the corresponding
+input pixel value (plus, potentially, some globally collected 
+information or parameters).
+Examples of such operators include brightness and contrast 
+adjustments as well as color correction and transformations.
+
+image.convertTo(new_image, -1, alpha, beta);
+

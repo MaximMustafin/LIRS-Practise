@@ -1,0 +1,91 @@
+[Input/Output]
+Images
+
+1)Load an image from a file:
+Mat img = imread(filename);
+
+2)If you read a jpg file, a 3 channel image is created by default.
+If you need a grayscale image use:
+Mat img = imread(filename, IMREAD_GRAYSCALE);
+
+3)To save an image to a file:
+imwrite(filename, img);
+
+4)To read and write an image from/to memory rather than a file:
+cv::imdecode and cv::imencode
+
+[Basic operations with images]
+Accessing pixel intensity values
+
+1)In order to get pixel intensity value,
+you have to know the type of an image and the number of channels.
+Here is an example for a single channel
+grey scale image (type 8UC1) and pixel coordinates x and y:
+
+Scalar intensity = img.at<uchar>(y, x);
+
+2)C++ version only: intensity.val[0] contains a value from 0 to 255.
+Note the ordering of x and y.
+Since in OpenCV images are represented by the same structure
+as matrices, we use the same convention
+for both cases - the 0-based row index (or y-coordinate) goes
+first and the 0-based column index (or x-coordinate) follows it.
+Alternatively, you can use the following notation (C++ only):
+
+Scalar intensity = img.at<uchar>(Point(x, y));
+
+3)Now let us consider a 3 channel image with
+BGR color ordering (the default format returned by imread):
+
+Vec3b intensity = img.at<Vec3b>(y, x);
+uchar blue = intensity.val[0];
+uchar green = intensity.val[1];
+uchar red = intensity.val[2];
+
+The same method can be used to change pixel intensities:
+
+img.at<uchar>(y, x) = 128;
+
+There are functions in OpenCV,
+especially from calib3d module, such as cv::projectPoints,
+that take an array of 2D or 3D points in the form of Mat.
+Matrix should contain exactly one column,
+each row corresponds to a point,
+matrix type should be 32FC2 or 32FC3 correspondingly. 
+Such a matrix can be easily constructed from std::vector (C++ only):
+
+vector<Point2f> points;
+//... fill the array
+Mat pointsMat = Mat(points);
+
+One can access a point in this matrix using the same method
+Mat::at (C++ only):
+
+Point2f point = pointsMat.at<Point2f>(i, 0);
+
+[Primitive operations]
+There is a number of convenient operators defined on a matrix.
+
+1)Here is how we can make a black image from an existing greyscale
+image img => img = Scalar(0);
+
+2)Selecting a region of interest => Rect r(10, 10, 100, 100);
+									Mat smallImg = img(r);
+									
+3)Conversion from color to greyscale => Mat img = imread("image.jpg"); // loading a 8UC3 image
+										Mat grey;
+										cvtColor(img, grey, COLOR_BGR2GRAY);
+								
+[Visualizing images]
+It is very useful to see intermediate results of your algorithm
+during development process. OpenCV provides a convenient way of
+visualizing images. A 8U image can be shown using:
+
+Mat img = imread("image.jpg");
+namedWindow("image", WINDOW_AUTOSIZE);
+imshow("image", img);
+waitKey();
+
+
+
+  
