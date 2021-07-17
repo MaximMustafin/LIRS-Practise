@@ -3,7 +3,7 @@
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="false"/>
+  <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
@@ -26,9 +26,8 @@
   <arg name="pitch" default="0"/>
   <arg name="yaw" default="0"/>
 
-  <arg name="x2" default="15.7"/>
-  <arg name="y2" default="0"/>
-  <arg name="z2" default="5"/>
+  <arg name="x2" default="16.5"/>
+  <arg name="z2" default="4.3"/>
   <arg name="roll2" default="0"/>
   <arg name="pitch2" default="0.77"/>
   <arg name="yaw2" default="3.14"/>
@@ -65,5 +64,38 @@
   <node name="urdf_spawner_3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model center_camera -param robot_description_3 -x $(arg x) -y $(arg y_center) -z $(arg z)
           -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
+
+
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description_4"
+    command="$(find xacro)/xacro --inorder '$(find camera_description)/urdf/camera4.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner_4" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model upper_right_camera -param robot_description_4 -x $(arg x2) -y $(arg y_right) -z $(arg z2)
+          -R $(arg roll) -P $(arg pitch2) -Y $(arg yaw2)"/>
+
+
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description_5"
+    command="$(find xacro)/xacro --inorder '$(find camera_description)/urdf/camera5.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner_5" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model upper_left_camera -param robot_description_5 -x $(arg x2) -y $(arg y_left) -z $(arg z2)
+          -R $(arg roll) -P $(arg pitch2) -Y $(arg yaw2)"/>
+
+
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description_6"
+    command="$(find xacro)/xacro --inorder '$(find camera_description)/urdf/camera6.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner_6" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model upper_center_camera -param robot_description_6 -x $(arg x2) -y $(arg y_center) -z $(arg z2)
+          -R $(arg roll) -P $(arg pitch2) -Y $(arg yaw2)"/>
 
 </launch>

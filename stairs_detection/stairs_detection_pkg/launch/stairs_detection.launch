@@ -1,6 +1,6 @@
 <launch>
 
-    <include file="$(find camera_description)/launch/world_for_testing.launch" />
+    <!-- <include file="$(find camera_description)/launch/world_for_testing.launch" /> -->
 
     <node pkg="stairs_detection_pkg" type="depth_converter_node" name="depth_converter" output="screen">
         <remap from="left_camera" to="/left_camera/image_raw" />
